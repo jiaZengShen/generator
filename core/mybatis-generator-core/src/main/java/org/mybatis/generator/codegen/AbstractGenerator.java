@@ -17,8 +17,12 @@ package org.mybatis.generator.codegen;
 
 import java.util.List;
 
+import org.mybatis.generator.api.IntrospectedColumn;
 import org.mybatis.generator.api.IntrospectedTable;
 import org.mybatis.generator.api.ProgressCallback;
+import org.mybatis.generator.api.dom.java.FullyQualifiedJavaType;
+import org.mybatis.generator.api.dom.java.Method;
+import org.mybatis.generator.api.dom.java.Parameter;
 import org.mybatis.generator.config.Context;
 
 public abstract class AbstractGenerator {
@@ -61,5 +65,68 @@ public abstract class AbstractGenerator {
 
     public void setProgressCallback(ProgressCallback progressCallback) {
         this.progressCallback = progressCallback;
+    }
+
+    /**
+     * 得到主键的parameter
+     * @return
+     */
+    public Parameter getPrimaryKeyParameter(){
+        List<IntrospectedColumn> columns = introspectedTable.getPrimaryKeyColumns();
+        if(columns != null && columns.size()>0){
+            IntrospectedColumn column = columns.get(0);
+            FullyQualifiedJavaType parameterType = column.getFullyQualifiedJavaType();
+            Parameter parameter = new Parameter(parameterType,column.getJavaProperty());
+            return parameter;
+        }else {
+            return null;
+        }
+    }
+
+    /**
+     * 得到驼峰的命名法的参数
+     * @param type
+     * @return
+     */
+    public String getSmallParameter(FullyQualifiedJavaType type){
+        String str = type.getShortName();
+
+        if(Character.isLowerCase(str.charAt(0)))
+            return str;
+        else
+            return (new StringBuilder()).append(Character.toLowerCase(str.charAt(0))).append(str.substring(1)).toString();
+    }
+
+    /**
+     * 设置方法的备注
+     * @param method
+     * @param comment
+     */
+    public void setMethodCommentWithTableRemarks(Method method, String comment){
+        FullyQualifiedJavaType parameterType;
+        parameterType = introspectedTable.getRules()
+                .calculateAllFieldsClass();
+        if(introspectedTable.getRemarks() != null && introspectedTable.getRemarks().length()>0)
+            method.setComment(comment+introspectedTable.getRemarks());
+        else
+            method.setComment(comment+parameterType.getShortName());
+        context.getCommentGenerator().addGeneralMethodComment(method,
+                introspectedTable);
+    }
+    /**
+     * 复制接口函数
+     * @param interMethod
+     * @return
+     */
+    public Method copyInterface(Method interMethod){
+        Method implMethod = new Method();
+        implMethod.setName(interMethod.getName());
+        implMethod.setComment(interMethod.getComment());
+        implMethod.setReturnType(interMethod.getReturnType());
+        for(Parameter parameter :interMethod.getParameters()){
+            implMethod.addParameter(parameter);
+        }
+        implMethod.addAnnotation("@Override");
+        return implMethod;
     }
 }

@@ -23,6 +23,8 @@ public class Parameter {
     private FullyQualifiedJavaType type;
     private boolean isVarargs;
 
+    private String comment ;
+
     private List<String> annotations;
 
     public Parameter(FullyQualifiedJavaType type, String name, boolean isVarargs) {
@@ -95,5 +97,14 @@ public class Parameter {
 
     public boolean isVarargs() {
         return isVarargs;
+    }
+
+
+    public String getComment() {
+        return comment;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
     }
 }

@@ -664,6 +664,8 @@ public class DatabaseIntrospector {
                     fqt.getIntrospectedTableName(), null);
             if (rs.next()) {
                 String remarks = rs.getString("REMARKS"); //$NON-NLS-1$
+                //String str = rs.getString("comment");
+                //String str2 = rs.getString("COMMENT");
                 String tableType = rs.getString("TABLE_TYPE"); //$NON-NLS-1$
                 introspectedTable.setRemarks(remarks);
                 introspectedTable.setTableType(tableType);

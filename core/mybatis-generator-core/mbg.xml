@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+  PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+  "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>
+
+	<!-- 
+		targetRuntime="MyBatis3Simple":生成简单版的CRUD
+		MyBatis3:豪华版
+	
+	 -->
+  <context id="DB2Tables" targetRuntime="MyBatis3">
+  	<!-- jdbcConnection：指定如何连接到目标数据库 -->
+    <jdbcConnection driverClass="com.mysql.jdbc.Driver"
+        connectionURL="jdbc:mysql://localhost:3306/research?allowMultiQueries=true"
+        userId="root"
+        password="501821782">
+        <property name="remarks" value="true"/>
+    </jdbcConnection>
+
+	<!--  -->
+    <javaTypeResolver >
+      <property name="forceBigDecimals" value="false" />
+    </javaTypeResolver>
+
+	<!-- javaModelGenerator：指定javaBean的生成策略 
+	targetPackage="test.model"：目标包名
+	targetProject="\MBGTestProject\src"：目标工程
+	-->
+    <javaModelGenerator targetPackage="com.hozedata.research.entity" 
+    		targetProject=".\src\main\resources">
+      <property name="enableSubPackages" value="true" />
+      <property name="trimStrings" value="true" />
+    </javaModelGenerator>
+
+	<!-- sqlMapGenerator：sql映射生成策略： -->
+    <sqlMapGenerator targetPackage="com.hozedata.research.mapper"  
+    	targetProject=".\src\main\resources">
+      <property name="enableSubPackages" value="true" />
+    </sqlMapGenerator>
+
+	<!-- javaClientGenerator:指定mapper接口所在的位置 -->
+    <javaClientGenerator type="XMLMAPPER" targetPackage="com.hozedata.research.mapper"  
+    	targetProject=".\src\main\resources">
+      <property name="enableSubPackages" value="true" />
+      <property name="daoTargetPackage" value="com.hozedata.research.dao"/>
+      <property name="daoImplTargetPackage" value="com.hozedata.research.dao.impl"/>
+      <property name="serviceTargetPackage" value="com.hozedata.research.service"/>
+      <property name="serviceImplTargetPackage" value="com.hozedata.research.service.impl"/>
+      <property name="controllerTargetPackage" value="com.hozedata.research.controller"/>
+      <property name="controllerReturnType" value="com.hozedata.research.entity.Message"/>
+    </javaClientGenerator>
+
+	<!-- 指定要逆向分析哪些表：根据表要创建javaBean -->
+    <table tableName="t_answer" domainObjectName="Answer" mapperName="AnswerMapper"  >
+    	<property name="useActualColumnNames" value="false"/>
+    	<property name="softDelCol" value="del_flag"/>
+      <generatedKey column="id" sqlStatement="JDBC" />      
+    </table>
+    <!--<table tableName="t_answer_item" domainObjectName="AnswerItem" mapperName="AnswerItemDao">
+    	<property name="useActualColumnNames" value="false"/>
+    </table>
+    <table tableName="t_option" domainObjectName="Option" mapperName="OptionDao">
+    	<property name="useActualColumnNames" value="false"/>
+    </table>
+    <table tableName="t_project" domainObjectName="Project" mapperName="ProjectDao">
+    	<property name="useActualColumnNames" value="false"/>
+    </table>
+    <table tableName="t_question" domainObjectName="Question" mapperName="QuestionDao">
+    	<property name="useActualColumnNames" value="false"/>
+    </table>
+    <table tableName="t_research_paper" domainObjectName="BaseResearchPaper" mapperName="ResearchPaperDao">
+    	<property name="useActualColumnNames" value="false"/>
+    </table>
+    <table tableName="t_research_table" domainObjectName="ResearchTable" mapperName="ResearchTableDao">
+    	<property name="useActualColumnNames" value="false"/>
+    </table>
+    <table tableName="t_respondent_social" domainObjectName="SocialRespondent" mapperName="SocialRespondentDao">
+    	<property name="useActualColumnNames" value="false"/>
+    </table>
+    <table tableName="t_respondent_hospital" domainObjectName="HospitalRespondent" mapperName="HospitalRespondentDao">
+    	<property name="useActualColumnNames" value="false"/>
+    </table>
+    <table tableName="t_table_questions" domainObjectName="TableQeustions" mapperName="TableQeustionsDao">
+    	<property name="useActualColumnNames" value="false"/>
+    </table>
+    <table tableName="t_table_questions" domainObjectName="TableQeustions" mapperName="TableQeustionsDao">
+    	<property name="useActualColumnNames" value="false"/>
+    </table>
+    <table tableName="t_user" domainObjectName="User" mapperName="UserDao">
+    	<property name="useActualColumnNames" value="false"/>
+    </table>
+    -->
+    
+  </context>
+</generatorConfiguration>

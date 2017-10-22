@@ -77,7 +77,8 @@ public class JDBCConnectionFactory implements ConnectionFactory {
         if (stringHasValue(password)) {
             props.setProperty("password", password); //$NON-NLS-1$
         }
-
+        props.setProperty("remarks", "true"); //设置可以获取remarks信息
+        props.setProperty("useInformationSchema", "true");//设置可以获取tables remarks信息
         props.putAll(otherProperties);
 
         Driver driver = getDriver();

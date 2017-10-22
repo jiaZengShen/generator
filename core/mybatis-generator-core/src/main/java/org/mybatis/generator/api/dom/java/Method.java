@@ -59,6 +59,11 @@ public class Method extends JavaElement {
     private boolean isDefault;
 
     /**
+     * 备注
+     */
+    private String comment ;
+
+    /**
      * Instantiates a new method.
      */
     public Method() {
@@ -102,6 +107,14 @@ public class Method extends JavaElement {
         this.returnType = original.returnType;
         this.isNative = original.isNative;
         this.isSynchronized = original.isSynchronized;
+    }
+
+    public String getComment() {
+        return comment;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
     }
 
     /**

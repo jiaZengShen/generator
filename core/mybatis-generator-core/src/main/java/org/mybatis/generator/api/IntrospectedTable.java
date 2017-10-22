@@ -68,6 +68,9 @@ public abstract class IntrospectedTable {
         ATTR_MYBATIS3_XML_MAPPER_FILE_NAME,
         /** also used as XML Mapper namespace if a Java mapper is generated. */
         ATTR_MYBATIS3_JAVA_MAPPER_TYPE,
+        ATTR_MYBATIS3_JAVA_SERVICE_TYPE,
+        ATTR_MYBATIS3_JAVA_SERVICE_IMPL_TYPE,
+        ATTR_MYBATIS3_JAVA_CONTROLLER_TYPE ,
         /** used as XML Mapper namespace if no client is generated. */
         ATTR_MYBATIS3_FALLBACK_SQL_MAP_NAMESPACE,
         ATTR_FULLY_QUALIFIED_TABLE_NAME_AT_RUNTIME,
@@ -93,7 +96,12 @@ public abstract class IntrospectedTable {
         ATTR_BASE_COLUMN_LIST_ID,
         ATTR_BLOB_COLUMN_LIST_ID,
         ATTR_MYBATIS3_UPDATE_BY_EXAMPLE_WHERE_CLAUSE_ID,
-        ATTR_MYBATIS3_SQL_PROVIDER_TYPE
+        ATTR_MYBATIS3_SQL_PROVIDER_TYPE,
+        ATTR_INSERT_BATCH,
+        //service使用
+        ATTR_SERVICE_SAVE_TYPE,//SERVICE 的保存操作。
+        ATTR_CONTROLLER_RETURN_TYPE //controller的返回类型
+
     }
 
     protected TableConfiguration tableConfiguration;
@@ -420,6 +428,7 @@ public abstract class IntrospectedTable {
                 .get(InternalAttribute.ATTR_IBATIS2_SQL_MAP_PACKAGE);
     }
 
+    //--得到
     public String getDAOImplementationType() {
         return internalAttributes
                 .get(InternalAttribute.ATTR_DAO_IMPLEMENTATION_TYPE);
@@ -428,6 +437,35 @@ public abstract class IntrospectedTable {
     public String getDAOInterfaceType() {
         return internalAttributes
                 .get(InternalAttribute.ATTR_DAO_INTERFACE_TYPE);
+    }
+
+    public String getServiceInterfaceType(){
+        return internalAttributes.get(InternalAttribute.ATTR_MYBATIS3_JAVA_SERVICE_TYPE);
+    }
+    public String getServiceImplementationType(){
+        return internalAttributes.get(InternalAttribute.ATTR_MYBATIS3_JAVA_SERVICE_IMPL_TYPE);
+    }
+    public String getControllerType(){
+        return internalAttributes.get(InternalAttribute.ATTR_MYBATIS3_JAVA_CONTROLLER_TYPE);
+    }
+    public String getControllerReturnType(){
+        return internalAttributes.get(InternalAttribute.ATTR_CONTROLLER_RETURN_TYPE);
+    }
+
+
+    //设置
+    public void setServiceInterfaceType(String s){
+        internalAttributes.put(InternalAttribute.ATTR_MYBATIS3_JAVA_SERVICE_TYPE,s);
+    }
+    public void setServiceImplementationType(String s){
+        internalAttributes.put(InternalAttribute.ATTR_MYBATIS3_JAVA_SERVICE_IMPL_TYPE,s);
+    }
+    public void setControllerType(String s){
+        internalAttributes.put(InternalAttribute.ATTR_MYBATIS3_JAVA_CONTROLLER_TYPE,s);
+    }
+
+    public void setControllerReturnType(String s){
+        internalAttributes.put(InternalAttribute.ATTR_CONTROLLER_RETURN_TYPE,s);
     }
 
     public boolean hasAnyColumns() {
@@ -531,6 +569,7 @@ public abstract class IntrospectedTable {
         setDeleteByPrimaryKeyStatementId("deleteByPrimaryKey"); //$NON-NLS-1$
         setInsertStatementId("insert"); //$NON-NLS-1$
         setInsertSelectiveStatementId("insertSelective"); //$NON-NLS-1$
+        setInsertBatch("insertBatch");
         setSelectAllStatementId("selectAll"); //$NON-NLS-1$
         setSelectByExampleStatementId("selectByExample"); //$NON-NLS-1$
         setSelectByExampleWithBLOBsStatementId("selectByExampleWithBLOBs"); //$NON-NLS-1$
@@ -547,6 +586,10 @@ public abstract class IntrospectedTable {
         setBaseColumnListId("Base_Column_List"); //$NON-NLS-1$
         setBlobColumnListId("Blob_Column_List"); //$NON-NLS-1$
         setMyBatis3UpdateByExampleWhereClauseId("Update_By_Example_Where_Clause"); //$NON-NLS-1$
+    }
+
+    public void setInsertBatch(String s){
+        internalAttributes.put(InternalAttribute.ATTR_INSERT_BATCH,s);
     }
 
     public void setBlobColumnListId(String s) {
@@ -743,6 +786,9 @@ public abstract class IntrospectedTable {
         return internalAttributes
                 .get(InternalAttribute.ATTR_INSERT_SELECTIVE_STATEMENT_ID);
     }
+    public String getInsertBatchId(){
+        return internalAttributes.get(InternalAttribute.ATTR_INSERT_BATCH);
+    }
 
     public String getInsertStatementId() {
         return internalAttributes
@@ -763,6 +809,86 @@ public abstract class IntrospectedTable {
         return internalAttributes
                 .get(InternalAttribute.ATTR_COUNT_BY_EXAMPLE_STATEMENT_ID);
     }
+    /**
+     * 是否是软删除
+     * @return
+     */
+    public boolean isSoftDel(){
+        TableConfiguration configuration = getTableConfiguration();
+        String col = configuration.getProperty("softDelCol");
+        if(col!= null && col.length()>0){
+            return true;
+        }else {
+            return false;
+        }
+    }
+    //controller方法
+    public String getControllerSaveId(){
+        return "save";
+    }
+    public String getControllerRemoveId(){
+        TableConfiguration configuration = getTableConfiguration();
+        String col = configuration.getProperty("softDelCol");
+        if(col!= null && col.length()>0){
+            return "remove";
+        }else {
+            return "delete";
+        }
+    }
+    public String getControllerUpdateId(){
+        return "update";
+    }
+    public String getControllerGetId(){
+        return "get";
+    }
+    public String getControllerListId(){
+        return "list";
+    }
+    //service 方法名
+    public String getServiceSaveId(){
+        return "save";
+    }
+    public String getServiceRemoveId(){
+        TableConfiguration configuration = getTableConfiguration();
+        String col = configuration.getProperty("softDelCol");
+        if(col!= null && col.length()>0){
+            return "remove";
+        }else {
+            return "delete";
+        }
+    }
+    public String getServiceUpdateId(){
+        return "update";
+    }
+    public String getServiceListAllId(){
+        return "listAll";
+    }
+    public String getServiceGetId(){
+        return "get";
+    }
+    //dao层方法名
+    public String getDaoSaveId(){
+        return "save";
+    }
+    public String getDaoRemoveId(){
+        TableConfiguration configuration = getTableConfiguration();
+        String col = configuration.getProperty("softDelCol");
+        if(col!= null && col.length()>0){
+            return "remove";
+        }else {
+            return "delete";
+        }
+    }
+    public String getDaoUpdateId(){
+        return "update";
+    }
+    public String getDaoListAllId(){
+        return "listAll";
+    }
+    public String getDaoGetId(){
+        return "get";
+    }
+
 
     protected String calculateJavaClientImplementationPackage() {
         JavaClientGeneratorConfiguration config = context
@@ -806,20 +932,50 @@ public abstract class IntrospectedTable {
         if (context.getJavaClientGeneratorConfiguration() == null) {
             return;
         }
-
+        JavaClientGeneratorConfiguration config = context
+                .getJavaClientGeneratorConfiguration();
+        //dao
         StringBuilder sb = new StringBuilder();
-        sb.append(calculateJavaClientImplementationPackage());
+        sb.append(config.getDaoTargetPackage());
         sb.append('.');
         sb.append(fullyQualifiedTable.getDomainObjectName());
-        sb.append("DAOImpl"); //$NON-NLS-1$
-        setDAOImplementationType(sb.toString());
+        sb.append("Dao"); //$NON-NLS-1$
+        setDAOInterfaceType(sb.toString());
 
         sb.setLength(0);
-        sb.append(calculateJavaClientInterfacePackage());
+        sb.append(config.getDaoImplTargetPackage());
         sb.append('.');
         sb.append(fullyQualifiedTable.getDomainObjectName());
-        sb.append("DAO"); //$NON-NLS-1$
-        setDAOInterfaceType(sb.toString());
+        sb.append("DaoImpl"); //$NON-NLS-1$
+        setDAOImplementationType(sb.toString());
+
+        //service
+        sb.setLength(0);
+        sb.append(config.getServiceTargetPackage());
+        sb.append('.');
+        sb.append(fullyQualifiedTable.getDomainObjectName());
+        sb.append("Service"); //$NON-NLS-1$
+        setServiceInterfaceType(sb.toString());
+
+        //service impl
+        sb.setLength(0);
+        sb.append(config.getServiceImplTargetPackage());
+        sb.append('.');
+        sb.append(fullyQualifiedTable.getDomainObjectName());
+        sb.append("ServiceImpl"); //$NON-NLS-1$
+        setServiceImplementationType(sb.toString());
+
+        //controller
+        sb.setLength(0);
+        sb.append(config.getControllerTargetPackge());
+        sb.append('.');
+        sb.append(fullyQualifiedTable.getDomainObjectName());
+        sb.append("Controller"); //$NON-NLS-1$
+        setControllerType(sb.toString());
+
+        //controller 返回类型
+        sb.setLength(0);
+        setControllerReturnType(config.getControllerReturnType());
 
         sb.setLength(0);
         sb.append(calculateJavaClientInterfacePackage());

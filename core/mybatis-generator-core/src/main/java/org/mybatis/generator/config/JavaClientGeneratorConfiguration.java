@@ -49,6 +49,25 @@ public class JavaClientGeneratorConfiguration extends TypedPropertyHolder {
     public String getTargetPackage() {
         return targetPackage;
     }
+    public String getServiceTargetPackage(){
+        return this.getProperty("serviceTargetPackage");
+    }
+    public String getServiceImplTargetPackage(){
+        return this.getProperty("serviceImplTargetPackage");
+    }
+
+    public String getControllerTargetPackge(){
+        return this.getProperty("controllerTargetPackage");
+    }
+    public String getControllerReturnType(){
+        return this.getProperty("controllerReturnType");
+    }
+    public String getDaoTargetPackage(){
+        return this.getProperty("daoTargetPackage");
+    }
+    public String getDaoImplTargetPackage(){
+        return this.getProperty("daoImplTargetPackage");
+    }
 
     public void setTargetPackage(String targetPackage) {
         this.targetPackage = targetPackage;
