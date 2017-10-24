@@ -22,6 +22,8 @@ public class SaveImplMethodGenerator extends AbstractJavaDaoImplMethodGenerator 
         importedTypes.addAll(saveMethodGenerator.getImportedTypes());
         Method method = copyInterface(saveMethodGenerator.getMethod());
 
+        method.setVisibility(JavaVisibility.PUBLIC);
+
         String mapperName = getMapperFiledName(topLevelClass);
         method.addBodyLine("return "+mapperName+"."+introspectedTable.getInsertStatementId()+"("+saveMethodGenerator.getParameter().getName()+");");
 

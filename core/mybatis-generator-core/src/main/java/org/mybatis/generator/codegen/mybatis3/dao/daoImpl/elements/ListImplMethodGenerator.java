@@ -1,6 +1,7 @@
 package org.mybatis.generator.codegen.mybatis3.dao.daoImpl.elements;
 
 import org.mybatis.generator.api.dom.java.FullyQualifiedJavaType;
+import org.mybatis.generator.api.dom.java.JavaVisibility;
 import org.mybatis.generator.api.dom.java.Method;
 import org.mybatis.generator.api.dom.java.TopLevelClass;
 import org.mybatis.generator.codegen.mybatis3.dao.elements.GetMethodGenerator;
@@ -26,6 +27,7 @@ public class ListImplMethodGenerator extends AbstractJavaDaoImplMethodGenerator 
         String mapperName = getMapperFiledName(topLevelClass);
         FullyQualifiedJavaType exampleType = new FullyQualifiedJavaType(
                 introspectedTable.getExampleType());
+        method.setVisibility(JavaVisibility.PUBLIC);
 
         /*
         * UserAuthorityExample example = new UserAuthorityExample();
@@ -36,7 +38,7 @@ public class ListImplMethodGenerator extends AbstractJavaDaoImplMethodGenerator 
         */
         method.addBodyLine(exampleType.getShortName() + " example = new "+exampleType.getShortName()+"();");
         method.addBodyLine(exampleType.getShortName()+".Criteria criteria = example.createCriteria();");
-        method.addBodyLine("List<"+exampleType.getShortName()+"> list = "+mapperName+".selectByExample(example);");
+        method.addBodyLine(listMethodGenerator.getMethod().getReturnType().getShortName()+" list = "+mapperName+".selectByExample(example);");
         method.addBodyLine("return list;");
 
 

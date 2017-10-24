@@ -1,9 +1,6 @@
 package org.mybatis.generator.codegen.mybatis3.controller.elements;
 
-import org.mybatis.generator.api.dom.java.FullyQualifiedJavaType;
-import org.mybatis.generator.api.dom.java.Method;
-import org.mybatis.generator.api.dom.java.Parameter;
-import org.mybatis.generator.api.dom.java.TopLevelClass;
+import org.mybatis.generator.api.dom.java.*;
 import org.mybatis.generator.codegen.mybatis3.service.elements.SaveMethodGenerator;
 
 import java.util.Set;
@@ -36,6 +33,9 @@ public class SaveImplMethodGenerator extends AbstractJavaControllerImplMethodGen
         parameter.setComment(introspectedTable.getRemarks());
         method.addParameter(parameter);
 
+        method.setVisibility(JavaVisibility.PUBLIC);
+
+
         //method annotaion
         method.addAnnotation("@ResponseBody");
         method.addAnnotation("@RequestMapping(value = \"/"+introspectedTable.getControllerSaveId()+"\", method = RequestMethod.POST)");
@@ -52,7 +52,7 @@ public class SaveImplMethodGenerator extends AbstractJavaControllerImplMethodGen
         context.getCommentGenerator().addGeneralMethodComment(method,
                 introspectedTable);
 
-
+        setMethodCommentWithTableRemarks(method,"保存");
 
         if (context.getPlugins().clientInsertMethodGenerated(method, topLevelClass,
                 introspectedTable)) {

@@ -1,6 +1,7 @@
 package org.mybatis.generator.codegen.mybatis3.service.serviceImpl.elements;
 
 import org.mybatis.generator.api.dom.java.FullyQualifiedJavaType;
+import org.mybatis.generator.api.dom.java.JavaVisibility;
 import org.mybatis.generator.api.dom.java.Method;
 import org.mybatis.generator.api.dom.java.TopLevelClass;
 import org.mybatis.generator.codegen.mybatis3.dao.daoImpl.elements.AbstractJavaDaoImplMethodGenerator;
@@ -25,12 +26,12 @@ public class ListImplMethodGenerator extends AbstractJavaServiceImplMethodGenera
         Method method = copyInterface(listMethodGenerator.getMethod());
 
         String daoName = getMapperFiledName(topLevelClass);
-        method.addBodyLine("return "+daoName+"."+introspectedTable.getDaoListAllId()+"()");
+        method.addBodyLine("return "+daoName+"."+introspectedTable.getDaoListAllId()+"();");
 
         context.getCommentGenerator().addGeneralMethodComment(method,
                 introspectedTable);
 
-
+        method.setVisibility(JavaVisibility.PUBLIC);
 
         if (context.getPlugins().clientInsertMethodGenerated(method, topLevelClass,
                 introspectedTable)) {

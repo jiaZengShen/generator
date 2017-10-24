@@ -1,6 +1,7 @@
 package org.mybatis.generator.codegen.mybatis3.dao.daoImpl.elements;
 
 import org.mybatis.generator.api.dom.java.FullyQualifiedJavaType;
+import org.mybatis.generator.api.dom.java.JavaVisibility;
 import org.mybatis.generator.api.dom.java.Method;
 import org.mybatis.generator.api.dom.java.TopLevelClass;
 import org.mybatis.generator.codegen.mybatis3.dao.elements.GetMethodGenerator;
@@ -28,6 +29,7 @@ public class GetImplMethodGenerator extends AbstractJavaDaoImplMethodGenerator {
         method.addBodyLine("return "+mapperName+"."+introspectedTable.getSelectByPrimaryKeyStatementId()+
                 "("+getMethodGenerator.getParameter().getName()+");");
 
+        method.setVisibility(JavaVisibility.PUBLIC);
 
         context.getCommentGenerator().addGeneralMethodComment(method,
                 introspectedTable);

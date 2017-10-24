@@ -1,6 +1,7 @@
 package org.mybatis.generator.codegen.mybatis3.dao.daoImpl.elements;
 
 import org.mybatis.generator.api.dom.java.FullyQualifiedJavaType;
+import org.mybatis.generator.api.dom.java.JavaVisibility;
 import org.mybatis.generator.api.dom.java.Method;
 import org.mybatis.generator.api.dom.java.TopLevelClass;
 import org.mybatis.generator.codegen.mybatis3.dao.elements.SaveMethodGenerator;
@@ -24,6 +25,7 @@ public class UpdateImplMethodGenerator extends AbstractJavaDaoImplMethodGenerato
         Method method = copyInterface(updateMethodGenerator.getMethod());
 
         String mapperName = getMapperFiledName(topLevelClass);
+        method.setVisibility(JavaVisibility.PUBLIC);
 
         method.addBodyLine("return "+mapperName+"."+introspectedTable.getUpdateByPrimaryKeySelectiveStatementId()+
                 "("+updateMethodGenerator.getParameter().getName()+");");

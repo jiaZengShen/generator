@@ -1,9 +1,6 @@
 package org.mybatis.generator.codegen.mybatis3.dao.daoImpl.elements;
 
-import org.mybatis.generator.api.dom.java.Field;
-import org.mybatis.generator.api.dom.java.FullyQualifiedJavaType;
-import org.mybatis.generator.api.dom.java.Method;
-import org.mybatis.generator.api.dom.java.TopLevelClass;
+import org.mybatis.generator.api.dom.java.*;
 import org.mybatis.generator.codegen.mybatis3.dao.elements.RemoveMethodGenerator;
 import org.mybatis.generator.codegen.mybatis3.dao.elements.SaveMethodGenerator;
 import org.mybatis.generator.internal.util.JavaBeansUtil;
@@ -25,6 +22,9 @@ public class RemoveImplMethodGenerator extends AbstractJavaDaoImplMethodGenerato
         Set<FullyQualifiedJavaType> importedTypes = new TreeSet<FullyQualifiedJavaType>();
         importedTypes.addAll(removeMethodGenerator.getImportedTypes());
         Method method = copyInterface(removeMethodGenerator.getMethod());
+
+        method.setVisibility(JavaVisibility.PUBLIC);
+
 
         String mapperName = getMapperFiledName(topLevelClass);
         if(introspectedTable.isSoftDel()){

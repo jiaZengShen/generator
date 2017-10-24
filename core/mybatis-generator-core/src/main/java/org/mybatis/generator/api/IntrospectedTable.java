@@ -842,7 +842,7 @@ public abstract class IntrospectedTable {
         return "get";
     }
     public String getControllerListId(){
-        return "list";
+        return "listAll";
     }
     //service 方法名
     public String getServiceSaveId(){

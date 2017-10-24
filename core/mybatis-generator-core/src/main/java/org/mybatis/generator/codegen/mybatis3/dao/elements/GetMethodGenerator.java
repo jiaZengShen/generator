@@ -31,7 +31,7 @@ public class GetMethodGenerator extends AbstractJavaDaoMethodGenerator {
         if(parameter == null){
             return;
         }
-        parameter.setComment(introspectedTable.getRemarks());
+        parameter.setComment("主键");
         method.addParameter(parameter); //$NON-NLS-1$
 
         //设置备注
