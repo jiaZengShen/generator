@@ -155,7 +155,7 @@ public class InsertBatchElementGenerator extends
     private XmlElement getMiddleForEachElement() {
         XmlElement innerForEach = new XmlElement("foreach"); //$NON-NLS-1$
         innerForEach
-                .addAttribute(new Attribute("collection", "criterion.value")); //$NON-NLS-1$ //$NON-NLS-2$
+                .addAttribute(new Attribute("collection", "list")); //$NON-NLS-1$ //$NON-NLS-2$
         innerForEach.addAttribute(new Attribute("item", "item")); //$NON-NLS-1$ //$NON-NLS-2$
         innerForEach.addAttribute(new Attribute("index", "index"));
         innerForEach.addAttribute(new Attribute("separator", ",")); //$NON-NLS-1$ //$NON-NLS-2$

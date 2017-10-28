@@ -48,7 +48,7 @@ public class InsertBatchMethodGenerator extends
         String str = "java.util.List";
         FullyQualifiedJavaType allType = new FullyQualifiedJavaType(str);
         allType.addTypeArgument(parameterType);
-        method.addParameter(new Parameter(allType, "record")); //$NON-NLS-1$
+        method.addParameter(new Parameter(allType, "list")); //$NON-NLS-1$
 
         context.getCommentGenerator().addGeneralMethodComment(method,
                 introspectedTable);

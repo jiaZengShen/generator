@@ -36,11 +36,15 @@ public class RemoveImplMethodGenerator extends AbstractJavaDaoImplMethodGenerato
                     +");");
         }else {
             //直接删掉
-            method.addBodyLine("return "+mapperName+"."+introspectedTable.getDeleteByPrimaryKeyStatementId()+
-                    "("+
-                    removeMethodGenerator.getParameter().getName()
-                    +"."+JavaBeansUtil.getJavaBeansGetter(getPrimaryKeyColum(),context,introspectedTable).getName()+"()"
-                    +" );");
+            try {
+                method.addBodyLine("return " + mapperName + "." + introspectedTable.getDeleteByPrimaryKeyStatementId() +
+                        "(" +
+                        removeMethodGenerator.getParameter().getName()
+                        + "." + JavaBeansUtil.getJavaBeansGetter(getPrimaryKeyColum(), context, introspectedTable).getName() + "()"
+                        + " );");
+            }catch (Exception ex){
+                ex.printStackTrace();
+            }
         }
 
 

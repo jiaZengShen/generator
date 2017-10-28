@@ -26,8 +26,12 @@ public class GetImplMethodGenerator extends AbstractJavaDaoImplMethodGenerator {
 
         String mapperName = getMapperFiledName(topLevelClass);
 
-        method.addBodyLine("return "+mapperName+"."+introspectedTable.getSelectByPrimaryKeyStatementId()+
-                "("+getMethodGenerator.getParameter().getName()+");");
+        try {
+            method.addBodyLine("return " + mapperName + "." + introspectedTable.getSelectByPrimaryKeyStatementId() +
+                    "(" + getMethodGenerator.getParameter().getName() + ");");
+        }catch (Exception ex){
+            ex.printStackTrace();
+        }
 
         method.setVisibility(JavaVisibility.PUBLIC);
 
