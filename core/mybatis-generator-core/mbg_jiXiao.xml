@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+  PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+  "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>
+
+	<!-- 
+		targetRuntime="MyBatis3Simple":生成简单版的CRUD
+		MyBatis3:豪华版
+	 -->
+  <context id="DB2Tables" targetRuntime="MyBatis3">
+  	<!-- jdbcConnection：指定如何连接到目标数据库 -->
+    <jdbcConnection driverClass="com.mysql.jdbc.Driver"
+        connectionURL="jdbc:mysql://localhost:3306/jiXiao_qizhe?useUnicode=true&amp;serverTimezone=UTC&amp;allowMultiQueries=true&amp;characterEncoding=UTF-8"
+        userId="root"
+        password="501821782">
+    </jdbcConnection>
+
+	<!--  -->
+    <javaTypeResolver >
+      <property name="forceBigDecimals" value="false" />
+    </javaTypeResolver>
+
+	<!-- javaModelGenerator：指定javaBean的生成策略 
+	targetPackage="test.model"：目标包名
+	targetProject="\MBGTestProject\src"：目标工程
+	-->
+    <javaModelGenerator targetPackage="com.hozedata.fms.entity" 
+    		targetProject="d:\src\main\java">
+      <property name="enableSubPackages" value="true" />
+      <property name="trimStrings" value="true" />
+    </javaModelGenerator>
+
+	<!-- sqlMapGenerator：sql映射生成策略： -->
+    <sqlMapGenerator targetPackage="mapper"
+    	targetProject="d:\src\main\resources">
+      <property name="enableSubPackages" value="true" />
+    </sqlMapGenerator>
+
+	<!-- javaClientGenerator:指定mapper接口所在的位置 -->
+    <javaClientGenerator type="XMLMAPPER" targetPackage="com.hozedata.fms.dao.mapper"  
+    	targetProject="d:\src\main\java">
+        <property name="enableSubPackages" value="true" />
+        <property name="daoTargetPackage" value="com.hozedata.fms.dao"/>
+        <property name="daoImplTargetPackage" value="com.hozedata.fms.dao.impl"/>
+        <property name="serviceTargetPackage" value="com.hozedata.fms.service"/>
+        <property name="serviceImplTargetPackage" value="com.hozedata.fms.service.impl"/>
+        <property name="controllerTargetPackage" value="com.hozedata.fms.controller"/>
+        <property name="controllerReturnType" value="com.hozedata.fms.dto.AjaxResultMsgDTO"/>
+    </javaClientGenerator>
+
+	<!-- 指定要逆向分析哪些表：根据表要创建javaBean -->
+    <table tableName="DEPT_GROUP" domainObjectName="DeptGroup" mapperName="DeptGroupMapper">
+    	<property name="useActualColumnNames" value="false"/>
+        <generatedKey column="ID" sqlStatement="JDBC" />
+    </table>
+
+      <table tableName="DEPT_GROUP_DICT" domainObjectName="DeptGroupDictionary" mapperName="DeptGroupDictionaryMapper">
+          <property name="useActualColumnNames" value="false"/>
+          <generatedKey column="ID" sqlStatement="JDBC" />
+      </table>
+      <table tableName="EMPLOYEE" domainObjectName="Employee" mapperName="EmployeeMapper">
+          <property name="useActualColumnNames" value="false"/>
+          <generatedKey column="ID" sqlStatement="JDBC" />
+      </table>
+
+      <table tableName="IN_HOSPITAL_SUM" domainObjectName="InHospitalSum" mapperName="InHospitalSumMapper">
+          <property name="useActualColumnNames" value="false"/>
+          <generatedKey column="ID" sqlStatement="JDBC" />
+      </table>
+
+
+      <table tableName="OPERATION_SUM_DETAIL" domainObjectName="OperationSumDetail" mapperName="OperationSumDetailMapper">
+          <property name="useActualColumnNames" value="false"/>
+          <generatedKey column="ID" sqlStatement="JDBC" />
+      </table>
+
+
+      <table tableName="PERFORMANCE_QUOTA" domainObjectName="PerformanceQuota" mapperName="PerformanceQuotaMapper">
+          <property name="useActualColumnNames" value="false"/>
+          <generatedKey column="ID" sqlStatement="JDBC" />
+      </table>
+
+      <table tableName="POSITION_DICT" domainObjectName="PositionDictionary" mapperName="PositionDictionaryMapper">
+          <property name="useActualColumnNames" value="false"/>
+          <generatedKey column="ID" sqlStatement="JDBC" />
+      </table>
+      <table tableName="OUTPATIENT_SUM" domainObjectName="OutpatientSum" mapperName="OutpatientSumMapper">
+          <property name="useActualColumnNames" value="false"/>
+          <generatedKey column="ID" sqlStatement="JDBC" />
+      </table>
+      <table tableName="WORK_ACHIEVE_PERFORMANCE_BONUS_SUM" domainObjectName="WorkAchievePerformanceBonusSum" mapperName="WorkAchievePerformanceBonusSumMapper">
+          <property name="useActualColumnNames" value="false"/>
+          <generatedKey column="ID" sqlStatement="JDBC" />
+      </table>
+      <table tableName="WORK_ACHIEVE_PERFORMANCE_DEPT_RESULT" domainObjectName="WorkAchievePerformanceDeptResult" mapperName="WorkAchievePerformanceDeptResultMapper">
+          <property name="useActualColumnNames" value="false"/>
+          <generatedKey column="ID" sqlStatement="JDBC" />
+      </table>
+      <table tableName="WORK_ACHIEVE_PERFORMANCE_DEPT_RESULT_DETAIL" domainObjectName="WorkAchievePerformanceDeptResultDetail" mapperName="WorkAchievePerformanceDeptResultDetailMapper">
+          <property name="useActualColumnNames" value="false"/>
+          <generatedKey column="ID" sqlStatement="JDBC" />
+      </table>
+      <table tableName="WORK_ACHIEVE_PERFORMANCE_DEPTS" domainObjectName="WorkAchievePerformanceDepts" mapperName="WorkAchievePerformanceDeptsMapper">
+          <property name="useActualColumnNames" value="false"/>
+          <generatedKey column="ID" sqlStatement="JDBC" />
+      </table>
+      <table tableName="WORK_ACHIEVE_PERFORMANCE_DEPTS_BONUS_ASSIGN_LAW" domainObjectName="WorkAchievePerformanceDeptsBonusAssignLaw" mapperName="WorkAchievePerformanceDeptsBonusAssignLawMapper">
+          <property name="useActualColumnNames" value="false"/>
+          <generatedKey column="ID" sqlStatement="JDBC" />
+      </table>
+      <table tableName="WORK_ACHIEVE_PERFORMANCE_EMPLOYEE_RESULT" domainObjectName="WorkAchievePerformanceEmployeeResult" mapperName="WorkAchievePerformanceEmployeeResultMapper">
+          <property name="useActualColumnNames" value="false"/>
+          <generatedKey column="ID" sqlStatement="JDBC" />
+      </table>
+      <table tableName="WORK_ACHIEVE_PERFORMANCE_ITEM" domainObjectName="WorkAchievePerformanceItem" mapperName="WorkAchievePerformanceItemMapper">
+          <property name="useActualColumnNames" value="false"/>
+          <generatedKey column="ID" sqlStatement="JDBC" />
+      </table>
+      <table tableName="WORK_ACHIEVE_PERFORMANCE_ITEM_DETAIL" domainObjectName="WorkAchievePerformanceItemDetail" mapperName="WorkAchievePerformanceItemDetailMapper">
+          <property name="useActualColumnNames" value="false"/>
+          <generatedKey column="ID" sqlStatement="JDBC" />
+      </table>
+      <table tableName="WORK_LOAD_PERFORMANCE_ADMIN_DEPT_LAW_ITEM" domainObjectName="WorkLoadPerformanceAdminDeptLawItem" mapperName="WorkLoadPerformanceAdminDeptLawItemMapper">
+          <property name="useActualColumnNames" value="false"/>
+          <generatedKey column="ID" sqlStatement="JDBC" />
+      </table>
+      <table tableName="WORK_LOAD_PERFORMANCE_ASSIGN" domainObjectName="WorkLoadPerformanceAssign" mapperName="WorkLoadPerformanceAssignMapper">
+          <property name="useActualColumnNames" value="false"/>
+          <generatedKey column="ID" sqlStatement="JDBC" />
+      </table>
+      <table tableName="WORK_LOAD_PERFORMANCE_DEPT_DETAIL" domainObjectName="WorkLoadPerformanceDeptDetail" mapperName="WorkLoadPerformanceDeptDetailMapper">
+          <property name="useActualColumnNames" value="false"/>
+          <generatedKey column="ID" sqlStatement="JDBC" />
+      </table>
+      <table tableName="WORK_LOAD_PERFORMANCE_DEPT" domainObjectName="WorkLoadPerformanceDept" mapperName="WorkLoadPerformanceDeptMapper">
+          <property name="useActualColumnNames" value="false"/>
+          <generatedKey column="ID" sqlStatement="JDBC" />
+      </table>
+      <table tableName="WORK_LOAD_PERFORMANCE_EMPLOYEE_DETAIL" domainObjectName="WorkLoadPerformanceEmployeeDetail" mapperName="WorkLoadPerformanceEmployeeDetailMapper">
+          <property name="useActualColumnNames" value="false"/>
+          <generatedKey column="ID" sqlStatement="JDBC" />
+      </table>
+      <table tableName="WORK_LOAD_PERFORMANCE_EMPLOYEE" domainObjectName="WorkLoadPerformanceEmployee" mapperName="WorkLoadPerformanceEmployeeMapper">
+          <property name="useActualColumnNames" value="false"/>
+          <generatedKey column="ID" sqlStatement="JDBC" />
+      </table>
+      <table tableName="WORK_LOAD_PERFORMANCE_EMPLOYEE_LAW_ITEM" domainObjectName="WorkLoadPerformanceEmployeeLawItem" mapperName="WorkLoadPerformanceEmployeeLawItemMapper">
+          <property name="useActualColumnNames" value="false"/>
+          <generatedKey column="ID" sqlStatement="JDBC" />
+      </table>
+      <table tableName="WORK_LOAD_PERFORMANCE_LAW_ITEM" domainObjectName="WorkLoadPerformanceLawItem" mapperName="WorkLoadPerformanceLawItemMapper">
+          <property name="useActualColumnNames" value="false"/>
+          <generatedKey column="ID" sqlStatement="JDBC" />
+      </table>
+
+
+  </context>
+</generatorConfiguration>
