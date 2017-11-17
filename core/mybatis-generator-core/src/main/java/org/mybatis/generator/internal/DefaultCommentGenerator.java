@@ -188,7 +188,8 @@ public class DefaultCommentGenerator implements CommentGenerator {
         } else if (dateFormat != null) {
             return dateFormat.format(new Date());
         } else {
-            return "创建时间："+ new Date().toString();
+            //return "创建时间："+ new Date().toString();
+            return "";
         }
     }
 
