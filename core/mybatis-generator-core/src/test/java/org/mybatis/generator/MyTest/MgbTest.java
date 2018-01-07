@@ -18,8 +18,8 @@ public class MgbTest {
         //File configFile = new File("mbg_survey.xml");
         //File configFile = new File("mbg.xml");
         //File configFile = new File("mbg_fms.xml");
-        File configFile = new File("mbg_jiXiao.xml");
-        //File configFile = new File("mbg_joke.xml");
+        //File configFile = new File("mbg_jiXiao.xml");
+        File configFile = new File("mbg_joke.xml");
         ConfigurationParser cp = new ConfigurationParser(warnings);
         Configuration config = cp.parseConfiguration(configFile);
         DefaultShellCallback callback = new DefaultShellCallback(overwrite);

@@ -1,63 +1,64 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE generatorConfiguration
-  PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
-  "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
 <generatorConfiguration>
 
-	<!-- 
-		targetRuntime="MyBatis3Simple":生成简单版的CRUD
-		MyBatis3:豪华版
-	 -->
-  <context id="DB2Tables" targetRuntime="MyBatis3">
-  	<!-- jdbcConnection：指定如何连接到目标数据库 -->
-    <jdbcConnection driverClass="com.mysql.jdbc.Driver"
-        connectionURL="jdbc:mysql://www.hoojr.com:3306/joke?useUnicode=true&amp;serverTimezone=UTC&amp;allowMultiQueries=true&amp;characterEncoding=UTF-8"
-        userId="root"
-        password="501821782">
-    </jdbcConnection>
+    <!--
+        targetRuntime="MyBatis3Simple":生成简单版的CRUD
+        MyBatis3:豪华版
 
-	<!--  -->
-    <javaTypeResolver >
-      <property name="forceBigDecimals" value="false" />
-    </javaTypeResolver>
+     -->
+    <context id="DB2Tables" targetRuntime="MyBatis3">
+        <!-- jdbcConnection：指定如何连接到目标数据库 -->
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver"
+                        connectionURL="jdbc:mysql://www.hoojr.com:3306/joke?useUnicode=true&amp;serverTimezone=UTC&amp;allowMultiQueries=true&amp;characterEncoding=UTF-8"
+                        userId="root"
+                        password="501821782">
+        </jdbcConnection>
 
-	<!-- javaModelGenerator：指定javaBean的生成策略 
-	targetPackage="test.model"：目标包名
-	targetProject="\MBGTestProject\src"：目标工程
-	-->
-    <javaModelGenerator targetPackage="com.hozedata.fms.entity.performance"
-    		targetProject="d:\src\main\java">
-      <property name="enableSubPackages" value="true" />
-      <property name="trimStrings" value="true" />
-    </javaModelGenerator>
+        <!--  -->
+        <javaTypeResolver >
+            <property name="forceBigDecimals" value="false" />
+        </javaTypeResolver>
 
-	<!-- sqlMapGenerator：sql映射生成策略： -->
-    <sqlMapGenerator targetPackage="mapper"
-    	targetProject="d:\src\main\resources">
-      <property name="enableSubPackages" value="true" />
-    </sqlMapGenerator>
+        <!-- javaModelGenerator：指定javaBean的生成策略
+        targetPackage="test.model"：目标包名
+        targetProject="\MBGTestProject\src"：目标工程
+        -->
+        <javaModelGenerator targetPackage="com.hoojr.joke.entity"
+                            targetProject="d:\src\main\java">
+            <property name="enableSubPackages" value="true" />
+            <property name="trimStrings" value="true" />
+        </javaModelGenerator>
 
-	<!-- javaClientGenerator:指定mapper接口所在的位置 -->
-    <javaClientGenerator type="XMLMAPPER" targetPackage="com.hozedata.fms.dao.mapper.performance"
-    	targetProject="d:\src\main\java">
-        <property name="enableSubPackages" value="true" />
-        <property name="daoTargetPackage" value="com.hozedata.fms.dao.performance"/>
-        <property name="daoImplTargetPackage" value="com.hozedata.fms.dao.impl.performance"/>
-        <property name="serviceTargetPackage" value="com.hozedata.fms.service.performance"/>
-        <property name="serviceImplTargetPackage" value="com.hozedata.fms.service.impl.performance"/>
-        <property name="controllerTargetPackage" value="com.hozedata.fms.controller.performance"/>
-        <property name="controllerReturnType" value="com.hozedata.fms.dto.AjaxResultMsgDTO"/>
-    </javaClientGenerator>
+        <!-- sqlMapGenerator：sql映射生成策略： -->
+        <sqlMapGenerator targetPackage="mapper"
+                         targetProject="d:\src\main\resources">
+            <property name="enableSubPackages" value="true" />
+        </sqlMapGenerator>
 
-	<!-- 指定要逆向分析哪些表：根据表要创建javaBean -->
+        <!-- javaClientGenerator:指定mapper接口所在的位置 -->
+        <javaClientGenerator type="XMLMAPPER" targetPackage="com.hoojr.joke.dao.mapper"
+                             targetProject="d:\src\main\java">
+            <property name="enableSubPackages" value="true" />
+            <property name="daoTargetPackage" value="com.hoojr.joke.dao"/>
+            <property name="daoImplTargetPackage" value="com.hoojr.joke.dao.impl"/>
+            <property name="serviceTargetPackage" value="com.hoojr.joke.service"/>
+            <property name="serviceImplTargetPackage" value="com.hoojr.joke.service.impl"/>
+            <property name="controllerTargetPackage" value="com.hoojr.joke.controller"/>
+            <property name="controllerReturnType" value="com.hoojr.joke.entity.Message"/>
+        </javaClientGenerator>
 
-      <table tableName="picture" domainObjectName="Employee" mapperName="EmployeeMapper">
-          <property name="useActualColumnNames" value="false"/>
-          <generatedKey column="ID" sqlStatement="JDBC" />
-      </table>
-
-
+        <!-- 指定要逆向分析哪些表：根据表要创建javaBean -->
+        <table tableName="picture" domainObjectName="Picture" mapperName="PictureMapper">
+            <property name="useActualColumnNames" value="false"/>
+            <generatedKey column="id" sqlStatement="JDBC" />
+        </table>
 
 
-  </context>
+
+
+
+    </context>
 </generatorConfiguration>
