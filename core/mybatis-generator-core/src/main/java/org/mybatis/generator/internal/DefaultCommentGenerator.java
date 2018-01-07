@@ -85,7 +85,7 @@ public class DefaultCommentGenerator implements CommentGenerator {
 
         StringBuilder sb = new StringBuilder();
         //sb.append("  WARNING - "); //$NON-NLS-1$
-        xmlElement.addElement(new TextElement(sb.toString()));
+        //xmlElement.addElement(new TextElement(sb.toString()));
         List<Attribute> attributes = xmlElement.getAttributes();
         String id = xmlElement.getName();
         for(Attribute attribute : attributes){
