@@ -10,11 +10,18 @@
 	 -->
   <context id="DB2Tables" targetRuntime="MyBatis3">
   	<!-- jdbcConnection：指定如何连接到目标数据库 -->
-    <jdbcConnection driverClass="com.mysql.jdbc.Driver"
+    <!--<jdbcConnection driverClass="com.mysql.jdbc.Driver"
         connectionURL="jdbc:mysql://localhost:3306/ji_xiao2?useUnicode=true&amp;serverTimezone=UTC&amp;allowMultiQueries=true&amp;characterEncoding=UTF-8"
         userId="root"
         password="501821782">
     </jdbcConnection>
+-->
+
+      <jdbcConnection driverClass="com.mysql.jdbc.Driver"
+                      connectionURL="jdbc:mysql://59.110.68.181:3306/FMS_NEW?useUnicode=true&amp;amp;characterEncoding=utf8&amp;amp;zeroDateTimeBehavior=convertToNull"
+                      userId="hozedata"
+                      password="Hozedata@123">
+      </jdbcConnection>
 
 	<!--  -->
     <javaTypeResolver >
@@ -256,6 +263,17 @@
       <table tableName="PERFORMANCE_INDEX_FORMULA" domainObjectName="PerformanceIndexFormula" mapperName="PerformanceIndexFormulaMapper">
           <property name="useActualColumnNames" value="false"/>
       </table>
+
+      <table tableName="DICT_POST_GROUP" domainObjectName="DictPostGroup" mapperName="DictPostGroupMapper">
+          <property name="useActualColumnNames" value="false"/>
+          <generatedKey column="GROUP_ID" sqlStatement="JDBC" />
+      </table>
+
+
+
+
+
+
 
 
 
