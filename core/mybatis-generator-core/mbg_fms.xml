@@ -103,6 +103,14 @@
           <generatedKey column="ID" sqlStatement="JDBC" />
       </table>
 
+      <table tableName="SYS_ROLE_URL" domainObjectName="SysRoleUrl" mapperName="SysRoleUrlMapper">
+          <property name="useActualColumnNames" value="false"/>
+      </table>
+
+      <table tableName="SYS_HOSPITAL" domainObjectName="SysHospital" mapperName="SysHospitalMapper">
+          <property name="useActualColumnNames" value="false"/>
+          <generatedKey column="ID" sqlStatement="JDBC" />
+      </table>
 
 
   </context>

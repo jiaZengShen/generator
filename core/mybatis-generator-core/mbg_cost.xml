@@ -10,11 +10,11 @@
 	 -->
   <context id="DB2Tables" targetRuntime="MyBatis3">
   	<!-- jdbcConnection：指定如何连接到目标数据库 -->
-    <jdbcConnection driverClass="com.mysql.jdbc.Driver"
-        connectionURL="jdbc:mysql://localhost:3306/ji_xiao2?useUnicode=true&amp;serverTimezone=UTC&amp;allowMultiQueries=true&amp;characterEncoding=UTF-8"
-        userId="root"
-        password="501821782">
-    </jdbcConnection>
+      <jdbcConnection driverClass="com.mysql.jdbc.Driver"
+                      connectionURL="jdbc:mysql://192.168.199.183:3306/hoze_fms?useUnicode=true&amp;amp;characterEncoding=utf8&amp;amp;zeroDateTimeBehavior=convertToNull"
+                      userId="hozedata"
+                      password="Hozedata@123">
+      </jdbcConnection>
 
 	<!--  -->
     <javaTypeResolver >
@@ -66,6 +66,17 @@
           <generatedKey column="ID" sqlStatement="JDBC" />
       </table>
 
+      <table tableName="EMPLOYEE_FARE_ITEM" domainObjectName="EmployeeFareItem" mapperName="EmployeeFareItemMapper">
+          <property name="useActualColumnNames" value="false"/>
+      </table>
+
+      <table tableName="DICT_FARE" domainObjectName="DictFare" mapperName="DictFareMapper">
+          <property name="useActualColumnNames" value="false"/>
+      </table>
+
+      <table tableName="DICT_INDEX" domainObjectName="DictIndex" mapperName="DictIndexMapper">
+          <property name="useActualColumnNames" value="false"/>
+      </table>
 
 
   </context>
