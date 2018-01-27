@@ -11,7 +11,7 @@
   <context id="DB2Tables" targetRuntime="MyBatis3">
   	<!-- jdbcConnection：指定如何连接到目标数据库 -->
     <jdbcConnection driverClass="com.mysql.jdbc.Driver"
-        connectionURL="jdbc:mysql://localhost:3306/ji_xiao?useUnicode=true&amp;serverTimezone=UTC&amp;allowMultiQueries=true&amp;characterEncoding=UTF-8"
+        connectionURL="jdbc:mysql://www.hoojr.com:3306/ji_xiao2?useUnicode=true&amp;serverTimezone=UTC&amp;allowMultiQueries=true&amp;characterEncoding=UTF-8"
         userId="root"
         password="501821782">
     </jdbcConnection>
@@ -41,8 +41,8 @@
     <javaClientGenerator type="XMLMAPPER" targetPackage="com.hozedata.fms.dao.mapper.performance"
     	targetProject="d:\src\main\java">
         <property name="enableSubPackages" value="true" />
-        <property name="daoTargetPackage" value="com.hozedata.fms.dao.performance"/>
-        <property name="daoImplTargetPackage" value="com.hozedata.fms.dao.impl.performance"/>
+        <property name="daoTargetPackage" value="com.hozedata.fms.dao"/>
+        <property name="daoImplTargetPackage" value="com.hozedata.fms.dao.impl"/>
         <property name="serviceTargetPackage" value="com.hozedata.fms.service.performance"/>
         <property name="serviceImplTargetPackage" value="com.hozedata.fms.service.impl.performance"/>
         <property name="controllerTargetPackage" value="com.hozedata.fms.controller.performance"/>
@@ -53,23 +53,81 @@
 
       <table tableName="EMPLOYEE" domainObjectName="Employee" mapperName="EmployeeMapper">
           <property name="useActualColumnNames" value="false"/>
-          <generatedKey column="ID" sqlStatement="JDBC" />
+          <generatedKey column="DOCTOR_ID" sqlStatement="JDBC" />
       </table>
 
-      <table tableName="EMPLOYEE_POSITION" domainObjectName="EmployeePositionRelation" mapperName="EmployeePositionRelationMapper">
+      <!--<table tableName="EMPLOYEE_TITLE" domainObjectName="EmployeeTitleRelation" mapperName="EmployeeTitleRelationMapper">
+          <property name="useActualColumnNames" value="false"/>
+      </table>
+      -->
+
+      <!--包含详细信息的指标-->
+      <table tableName="EMPLOYEE_INDEX_DETAIL_VALUE" domainObjectName="EmployeeIndexDetailValue" mapperName="EmployeeIndexDetailValueMapper">
           <property name="useActualColumnNames" value="false"/>
           <generatedKey column="ID" sqlStatement="JDBC" />
       </table>
 
-      <table tableName="EMPLOYEE_INDEX_SUM" domainObjectName="EmployeeIndexSum" mapperName="EmployeeIndexSumMapper">
+      <!--月度指标-->
+      <table tableName="EMPLOYEE_MONTH_INDEX_VALUE" domainObjectName="EmployeeMonthIndexValue" mapperName="EmployeeMonthIndexValueMapper">
           <property name="useActualColumnNames" value="false"/>
           <generatedKey column="ID" sqlStatement="JDBC" />
       </table>
 
-      <table tableName="OPERATION_SUM_DETAIL" domainObjectName="OperationSumDetail" mapperName="OperationSumDetailMapper">
+      <!--字典表-->
+
+      <!--员工详细指标字典-->
+      <table tableName="DICT_EMPLOYEE_INDEX_DETAIL" domainObjectName="EmployeeIndexDetailDict" mapperName="EmployeeIndexDetailDictMapper">
           <property name="useActualColumnNames" value="false"/>
           <generatedKey column="ID" sqlStatement="JDBC" />
       </table>
+
+      <!--员工月度指标字典表-->
+      <table tableName="DICT_EMPLOYEE_MONTH_INDEX" domainObjectName="EmployeeMonthIndexDict" mapperName="EmployeeMonthIndexDictMapper">
+          <property name="useActualColumnNames" value="false"/>
+          <generatedKey column="ID" sqlStatement="JDBC" />
+      </table>
+
+      <!--职位字典-->
+      <table tableName="DICT_POST" domainObjectName="PostDict" mapperName="PostDictMapper">
+          <property name="useActualColumnNames" value="false"/>
+      </table>
+      <!--工作职位字典表-->
+      <table tableName="DICT_WORK_POST" domainObjectName="WorkPostDict" mapperName="WorkPostDictMapper">
+          <property name="useActualColumnNames" value="false"/>
+      </table>
+
+
+      <!--适用人员规则表-->
+      <table tableName="APPLY_EMPLOYEE_RULE" domainObjectName="ApplyEmployeeRule" mapperName="ApplyEmployeeRuleMapper">
+          <property name="useActualColumnNames" value="false"/>
+          <generatedKey column="ID" sqlStatement="JDBC" />
+      </table>
+
+      <!--分配规则排除人员-->
+      <table tableName="A_E_RULE_EXCLUDE" domainObjectName="ApplyEmployeeRuleExcludeEmployee" mapperName="ApplyEmployeeRuleExcludeEmployeeMapper">
+          <property name="useActualColumnNames" value="false"/>
+          <generatedKey column="ID" sqlStatement="JDBC" />
+      </table>
+
+      <!--分配规则包含人员-->
+      <table tableName="A_E_RULE_INCLUDE" domainObjectName="ApplyEmployeeRuleIncludeEmployee" mapperName="ApplyEmployeeRuleIncludeEmployeeMapper">
+          <property name="useActualColumnNames" value="false"/>
+          <generatedKey column="ID" sqlStatement="JDBC" />
+      </table>
+
+      <!--条件-->
+      <table tableName="CCONDITION" domainObjectName="CCondition" mapperName="CConditionMapper">
+          <property name="useActualColumnNames" value="false"/>
+          <generatedKey column="ID" sqlStatement="JDBC" />
+      </table>
+
+      <!--值计算方法表-->
+      <table tableName="COMPUTE_METHOD" domainObjectName="ComputeMethod" mapperName="ComputeMethodMapper">
+          <property name="useActualColumnNames" value="false"/>
+          <generatedKey column="ID" sqlStatement="JDBC" />
+      </table>
+
+
 
 
       <table tableName="PERFORMANCE_INDEX" domainObjectName="PerformanceIndex" mapperName="PerformanceIndexMapper">
@@ -77,10 +135,7 @@
           <generatedKey column="ID" sqlStatement="JDBC" />
       </table>
 
-      <table tableName="POSITION_DICT" domainObjectName="PositionDictionary" mapperName="PositionDictionaryMapper">
-          <property name="useActualColumnNames" value="false"/>
-          <generatedKey column="ID" sqlStatement="JDBC" />
-      </table>
+
       <table tableName="WORK_ACHIEVE_PERFORMANCE_BONUS_SUM" domainObjectName="WorkAchievePerformanceBonusSum" mapperName="WorkAchievePerformanceBonusSumMapper">
           <property name="useActualColumnNames" value="false"/>
           <generatedKey column="ID" sqlStatement="JDBC" />
@@ -113,6 +168,21 @@
           <property name="useActualColumnNames" value="false"/>
           <generatedKey column="ID" sqlStatement="JDBC" />
       </table>
+
+      <!--
+      新的表
+      -->
+
+      <!--工作量绩效的规则对应的部门们-->
+      <table tableName="WORK_LOAD_PERFORMANCE_DEPTS" domainObjectName="WorkLoadPerformanceLawItemDepts" mapperName="WorkLoadPerformanceLawItemDeptsMapper">
+          <property name="useActualColumnNames" value="false"/>
+      </table>
+
+
+      <!--
+      新的表
+      -->
+
       <table tableName="WORK_LOAD_PERFORMANCE_ADMIN_DEPT_LAW_ITEM" domainObjectName="WorkLoadPerformanceAdminDeptLawItem" mapperName="WorkLoadPerformanceAdminDeptLawItemMapper">
           <property name="useActualColumnNames" value="false"/>
           <generatedKey column="ID" sqlStatement="JDBC" />
@@ -145,6 +215,48 @@
           <property name="useActualColumnNames" value="false"/>
           <generatedKey column="ID" sqlStatement="JDBC" />
       </table>
+
+      <table tableName="COST_INDEX_VALUE" domainObjectName="CostIndexValue" mapperName="CostIndexValueMapper">
+          <property name="useActualColumnNames" value="false"/>
+          <generatedKey column="VALUE_ID" sqlStatement="JDBC" />
+      </table>
+
+      <table tableName="COST_INDEX" domainObjectName="CostIndex" mapperName="CostIndexMapper">
+          <property name="useActualColumnNames" value="false"/>
+          <generatedKey column="VALUE_ID" sqlStatement="JDBC" />
+      </table>
+
+      <table tableName="WORK_ACHIEVE_PERFORMANCE_EMPLOYEE_BONUS_ASSIGN_LAW" domainObjectName="WorkAchievePerformanceEmployeeBonusAssignLaw" mapperName="WorkAchievePerformanceEmployeeBonusAssignLawMapper">
+          <property name="useActualColumnNames" value="false"/>
+          <generatedKey column="ID" sqlStatement="JDBC" />
+      </table>
+
+      <table tableName="DEPT_PERFORMANCE_SUM" domainObjectName="DeptPerformanceSum" mapperName="DeptPerformanceSumMapper">
+          <property name="useActualColumnNames" value="false"/>
+          <generatedKey column="ID" sqlStatement="JDBC" />
+      </table>
+      <table tableName="EMPLOYEE_PERFORMANCE_SUM" domainObjectName="EmployeePerformanceSum" mapperName="EmployeePerformanceSumMapper">
+          <property name="useActualColumnNames" value="false"/>
+          <generatedKey column="ID" sqlStatement="JDBC" />
+      </table>
+      <table tableName="EMPLOYEE_PERFORMANCE_LAW_ITEM" domainObjectName="EmployeePerformanceLawItem" mapperName="EmployeePerformanceLawItemMapper">
+          <property name="useActualColumnNames" value="false"/>
+          <generatedKey column="ID" sqlStatement="JDBC" />
+      </table>
+
+
+      <table tableName="DICT_INDEX_GROUP" domainObjectName="IndexGroupDict" mapperName="IndexGroupDictMapper">
+          <property name="useActualColumnNames" value="false"/>
+      </table>
+
+      <table tableName="DICT_INDEX" domainObjectName="DictIndex" mapperName="DictIndexMapper">
+          <property name="useActualColumnNames" value="false"/>
+      </table>
+
+      <table tableName="PERFORMANCE_INDEX_FORMULA" domainObjectName="PerformanceIndexFormula" mapperName="PerformanceIndexFormulaMapper">
+          <property name="useActualColumnNames" value="false"/>
+      </table>
+
 
 
   </context>

@@ -26,28 +26,28 @@
 	targetPackage="test.model"：目标包名
 	targetProject="\MBGTestProject\src"：目标工程
 	-->
-    <javaModelGenerator targetPackage="com.hozedata.research.entity" 
-    		targetProject="D:\temp\research-develop-tttttt\src\main\java">
+    <javaModelGenerator targetPackage="com.hozedata.fms.entity.research"
+    		targetProject="d:\src\main\java">
       <property name="enableSubPackages" value="true" />
       <property name="trimStrings" value="true" />
     </javaModelGenerator>
 
 	<!-- sqlMapGenerator：sql映射生成策略： -->
     <sqlMapGenerator targetPackage="mapper"
-    	targetProject="D:\temp\research-develop-tttttt\src\main\resources">
+    	targetProject="d:\src\main\resources">
       <property name="enableSubPackages" value="true" />
     </sqlMapGenerator>
 
 	<!-- javaClientGenerator:指定mapper接口所在的位置 -->
-    <javaClientGenerator type="XMLMAPPER" targetPackage="com.hozedata.research.dao.mapper"
-    	targetProject="D:\temp\research-develop-tttttt\src\main\java">
+    <javaClientGenerator type="XMLMAPPER" targetPackage="com.hozedata.fms.dao.mapper.research"
+    	targetProject="d:\src\main\java">
       <property name="enableSubPackages" value="true" />
-      <property name="daoTargetPackage" value="com.hozedata.research.dao"/>
-      <property name="daoImplTargetPackage" value="com.hozedata.research.dao.impl"/>
-      <property name="serviceTargetPackage" value="com.hozedata.research.service"/>
-      <property name="serviceImplTargetPackage" value="com.hozedata.research.service.impl"/>
-      <property name="controllerTargetPackage" value="com.hozedata.research.controller"/>
-      <property name="controllerReturnType" value="com.hozedata.research.entity.Message"/>
+      <property name="daoTargetPackage" value="com.hozedata.fms.dao.research"/>
+      <property name="daoImplTargetPackage" value="com.hozedata.fms.dao.impl.research"/>
+      <property name="serviceTargetPackage" value="com.hozedata.fms.service.research"/>
+      <property name="serviceImplTargetPackage" value="com.hozedata.fms.service.impl"/>
+      <property name="controllerTargetPackage" value="com.hozedata.fms.controller"/>
+      <property name="controllerReturnType" value="com.hozedata.fms.entity.Message"/>
     </javaClientGenerator>
 
 	<!-- 指定要逆向分析哪些表：根据表要创建javaBean -->
@@ -118,7 +118,21 @@
     	<property name="useActualColumnNames" value="false"/>
       <generatedKey column="id" sqlStatement="JDBC" />
     </table>
-    
+
+    <table tableName="t_question_type_dict" domainObjectName="QuestionTypeDict" mapperName="QuestionTypeDictMapper">
+      <property name="useActualColumnNames" value="false"/>
+    </table>
+
+    <table tableName="t_question_report_param" domainObjectName="QuestionReportParam" mapperName="QuestionReportParamMapper">
+      <property name="useActualColumnNames" value="false"/>
+      <generatedKey column="id" sqlStatement="JDBC" />
+    </table>
+
+    <table tableName="t_option_report_param" domainObjectName="OptionReportParam" mapperName="OptionReportParamMapper">
+      <property name="useActualColumnNames" value="false"/>
+      <generatedKey column="id" sqlStatement="JDBC" />
+    </table>
+
     
   </context>
 </generatorConfiguration>

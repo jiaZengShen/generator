@@ -98,6 +98,11 @@
           <generatedKey column="id" sqlStatement="JDBC" />
       </table>
 
+      <table tableName="SUBJECT_RANGE_QUOTA" domainObjectName="SubjectRangeQuota" mapperName="SubjectRangeQuotaMapper">
+          <property name="useActualColumnNames" value="false"/>
+          <generatedKey column="ID" sqlStatement="JDBC" />
+      </table>
+
 
 
   </context>
