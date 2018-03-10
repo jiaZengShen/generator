@@ -50,9 +50,12 @@ public class XMLMapperGenerator extends AbstractXmlGenerator {
         addResultMapWithoutBLOBsElement(answer);
         addResultMapWithBLOBsElement(answer);
         addExampleWhereClauseElement(answer);
+        addExampleWhereClauseWithAElement(answer);//添加A的where
         addMyBatis3UpdateByExampleWhereClauseElement(answer);
         addBaseColumnListElement(answer);
+        addBaseColumnListWithAElement(answer);
         addBlobColumnListElement(answer);
+        addBlobColumnListWithAElement(answer);
         addSelectByExampleWithBLOBsElement(answer);
         addSelectByExampleWithoutBLOBsElement(answer);
         addSelectByPrimaryKeyElement(answer);
@@ -94,6 +97,11 @@ public class XMLMapperGenerator extends AbstractXmlGenerator {
         }
     }
 
+    protected void addExampleWhereClauseWithAElement(XmlElement parentElement) {
+        AbstractXmlElementGenerator elementGenerator = new ExampleWhereClauseWithAElementGenerator();
+        initializeAndExecuteGenerator(elementGenerator, parentElement);
+    }
+
     protected void addMyBatis3UpdateByExampleWhereClauseElement(
             XmlElement parentElement) {
         if (introspectedTable.getRules()
@@ -111,9 +119,21 @@ public class XMLMapperGenerator extends AbstractXmlGenerator {
         }
     }
 
+    protected void addBaseColumnListWithAElement(XmlElement parentElement) {
+        AbstractXmlElementGenerator elementGenerator = new BaseColumnListWithAElementGenerator();
+        initializeAndExecuteGenerator(elementGenerator, parentElement);
+    }
+
     protected void addBlobColumnListElement(XmlElement parentElement) {
         if (introspectedTable.getRules().generateBlobColumnList()) {
             AbstractXmlElementGenerator elementGenerator = new BlobColumnListElementGenerator();
+            initializeAndExecuteGenerator(elementGenerator, parentElement);
+        }
+    }
+
+    protected void addBlobColumnListWithAElement(XmlElement parentElement) {
+        if (introspectedTable.getRules().generateBlobColumnList()) {
+            AbstractXmlElementGenerator elementGenerator = new BlobColumnListWithAElementGenerator();
             initializeAndExecuteGenerator(elementGenerator, parentElement);
         }
     }

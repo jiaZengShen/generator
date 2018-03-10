@@ -32,6 +32,7 @@ public class PropertyRegistry {
     public static final String ANY_ROOT_CLASS = "rootClass"; //$NON-NLS-1$
     public static final String ANY_IMMUTABLE = "immutable"; //$NON-NLS-1$
     public static final String ANY_CONSTRUCTOR_BASED = "constructorBased"; //$NON-NLS-1$
+    public static final String ANY_COPY_CONSTRUNCTOR_BASED = "copyConstructorBased";//是否需要拷贝构造函数
 
     /**
      * recognized by table and java client generator

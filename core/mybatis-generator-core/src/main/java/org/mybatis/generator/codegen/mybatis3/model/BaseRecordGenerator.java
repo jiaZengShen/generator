@@ -20,9 +20,11 @@ import static org.mybatis.generator.internal.util.JavaBeansUtil.getJavaBeansGett
 import static org.mybatis.generator.internal.util.JavaBeansUtil.getJavaBeansSetter;
 import static org.mybatis.generator.internal.util.messages.Messages.getString;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Random;
 
 import org.mybatis.generator.api.CommentGenerator;
 import org.mybatis.generator.api.FullyQualifiedTable;
@@ -68,6 +70,24 @@ public class BaseRecordGenerator extends AbstractJavaGenerator {
             topLevelClass.setSuperClass(superClass);
             topLevelClass.addImportedType(superClass);
         }
+
+        //添加serializeble接口
+        FullyQualifiedJavaType serializebleJavaType = new FullyQualifiedJavaType("java.io.Serializable");
+        topLevelClass.addImportedType(serializebleJavaType);
+        topLevelClass.addSuperInterface(serializebleJavaType);
+        //private static final long serialVersionUID = -8547156011567675823L;
+        Field serialIdfield = new Field("serialVersionUID",new FullyQualifiedJavaType("long"));
+        serialIdfield.setVisibility(JavaVisibility.PRIVATE);
+        serialIdfield.setStatic(true);
+        serialIdfield.setFinal(true);
+        long value = new Random().nextLong();
+        serialIdfield.setInitializationString(""+value);
+        topLevelClass.addField(serialIdfield);
+
+
+
+        //----添加serializeble接口完毕
+
         commentGenerator.addModelClassComment(topLevelClass, introspectedTable);
 
         List<IntrospectedColumn> introspectedColumns = getColumnsInThisClass();
@@ -81,6 +101,14 @@ public class BaseRecordGenerator extends AbstractJavaGenerator {
 
             if (!introspectedTable.isImmutable()) {
                 addDefaultConstructor(topLevelClass);
+            }
+        }
+
+        if(introspectedTable.isCopyConstructorBased()){
+            addParameterizedCopyConstructor(topLevelClass, introspectedTable.getNonBLOBColumns());
+
+            if (includeBLOBColumns()) {
+                addParameterizedCopyConstructor(topLevelClass, introspectedTable.getAllColumns());
             }
         }
 
@@ -188,6 +216,63 @@ public class BaseRecordGenerator extends AbstractJavaGenerator {
                 sb.append("this."); //$NON-NLS-1$
                 sb.append(introspectedColumn.getJavaProperty());
                 sb.append(" = "); //$NON-NLS-1$
+                sb.append(introspectedColumn.getJavaProperty());
+                sb.append(';');
+                method.addBodyLine(sb.toString());
+            }
+        }
+
+        topLevelClass.addMethod(method);
+    }
+
+
+
+
+
+    private void addParameterizedCopyConstructor(TopLevelClass topLevelClass, List<IntrospectedColumn> constructorColumns) {
+        Method method = new Method();
+        method.setVisibility(JavaVisibility.PUBLIC);
+        method.setConstructor(true);
+        method.setName(topLevelClass.getType().getShortName());
+        //context.getCommentGenerator().addGeneralMethodComment(method, introspectedTable);
+        setMethodCommentWithTableRemarks(method,"拷贝构造函数 ");
+
+        String parameterName = getSmallParameter(topLevelClass.getType());
+
+        method.addParameter(new Parameter(topLevelClass.getType(),parameterName));
+
+
+//        for (IntrospectedColumn introspectedColumn : constructorColumns) {
+//            method.addParameter(new Parameter(introspectedColumn.getFullyQualifiedJavaType(),
+//                    introspectedColumn.getJavaProperty()));
+//            topLevelClass.addImportedType(introspectedColumn.getFullyQualifiedJavaType());
+//        }
+
+        StringBuilder sb = new StringBuilder();
+        List<String> superColumns = new LinkedList<String>();
+//        if (introspectedTable.getRules().generatePrimaryKeyClass()) {
+//            boolean comma = false;
+//            sb.append("super("); //$NON-NLS-1$
+//            for (IntrospectedColumn introspectedColumn : introspectedTable.getPrimaryKeyColumns()) {
+//                if (comma) {
+//                    sb.append(", "); //$NON-NLS-1$
+//                } else {
+//                    comma = true;
+//                }
+//                sb.append(introspectedColumn.getJavaProperty());
+//                superColumns.add(introspectedColumn.getActualColumnName());
+//            }
+//            sb.append(");"); //$NON-NLS-1$
+//            method.addBodyLine(sb.toString());
+//        }
+
+        for (IntrospectedColumn introspectedColumn : constructorColumns) {
+            if (!superColumns.contains(introspectedColumn.getActualColumnName())) {
+                sb.setLength(0);
+                sb.append("this."); //$NON-NLS-1$
+                sb.append(introspectedColumn.getJavaProperty());
+                sb.append(" = "); //$NON-NLS-1$
+                sb.append(parameterName+".");
                 sb.append(introspectedColumn.getJavaProperty());
                 sb.append(';');
                 method.addBodyLine(sb.toString());
