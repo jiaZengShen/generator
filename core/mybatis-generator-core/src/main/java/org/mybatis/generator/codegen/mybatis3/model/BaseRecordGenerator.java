@@ -99,9 +99,7 @@ public class BaseRecordGenerator extends AbstractJavaGenerator {
                 addParameterizedConstructor(topLevelClass, introspectedTable.getAllColumns());
             }
 
-            if (!introspectedTable.isImmutable()) {
-                addDefaultConstructor(topLevelClass);
-            }
+
         }
 
         if(introspectedTable.isCopyConstructorBased()){
@@ -109,6 +107,12 @@ public class BaseRecordGenerator extends AbstractJavaGenerator {
 
             if (includeBLOBColumns()) {
                 addParameterizedCopyConstructor(topLevelClass, introspectedTable.getAllColumns());
+            }
+        }
+
+        if(introspectedTable.isCopyConstructorBased() || introspectedTable.isConstructorBased()){
+            if (!introspectedTable.isImmutable()) {
+                addDefaultConstructor(topLevelClass);
             }
         }
 
