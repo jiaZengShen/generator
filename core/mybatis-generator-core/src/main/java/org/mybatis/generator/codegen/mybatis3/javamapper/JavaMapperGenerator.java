@@ -22,10 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.mybatis.generator.api.CommentGenerator;
-import org.mybatis.generator.api.dom.java.CompilationUnit;
-import org.mybatis.generator.api.dom.java.FullyQualifiedJavaType;
-import org.mybatis.generator.api.dom.java.Interface;
-import org.mybatis.generator.api.dom.java.JavaVisibility;
+import org.mybatis.generator.api.dom.java.*;
 import org.mybatis.generator.codegen.AbstractJavaClientGenerator;
 import org.mybatis.generator.codegen.AbstractXmlGenerator;
 import org.mybatis.generator.codegen.mybatis3.javamapper.elements.*;
@@ -56,7 +53,10 @@ public class JavaMapperGenerator extends AbstractJavaClientGenerator {
                 introspectedTable.getMyBatis3JavaMapperType());
         Interface interfaze = new Interface(type);
         interfaze.setVisibility(JavaVisibility.PUBLIC);
-        commentGenerator.addJavaFileComment(interfaze);
+        //commentGenerator.addJavaFileComment(interfaze);
+
+
+        commentGenerator.addInterfazeComment(interfaze,introspectedTable);
 
         String rootInterface = introspectedTable
                 .getTableConfigurationProperty(PropertyRegistry.ANY_ROOT_INTERFACE);

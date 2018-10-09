@@ -17,12 +17,7 @@ package org.mybatis.generator.api;
 
 import java.util.Properties;
 
-import org.mybatis.generator.api.dom.java.CompilationUnit;
-import org.mybatis.generator.api.dom.java.Field;
-import org.mybatis.generator.api.dom.java.InnerClass;
-import org.mybatis.generator.api.dom.java.InnerEnum;
-import org.mybatis.generator.api.dom.java.Method;
-import org.mybatis.generator.api.dom.java.TopLevelClass;
+import org.mybatis.generator.api.dom.java.*;
 import org.mybatis.generator.api.dom.xml.XmlElement;
 
 /**
@@ -89,6 +84,15 @@ public interface CommentGenerator {
      */
     void addModelClassComment(TopLevelClass topLevelClass,
             IntrospectedTable introspectedTable);
+
+
+    /**
+     * 添加接口注释
+     * @param topLevelClass
+     * @param introspectedTable
+     */
+    void addInterfazeComment(Interface topLevelClass,
+                              IntrospectedTable introspectedTable);
 
     /**
      * Adds the inner class comment.

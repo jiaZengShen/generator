@@ -1,0 +1,14 @@
+package ${package_name}.rpc.api;
+
+import com.hoze.common.base.BaseService;
+import ${package_name}.dao.model.${model};
+import ${package_name}.dao.model.${model}Example;
+
+/**
+* ${model}Service接口
+* ${model_comment}
+* Created by jzs on ${ctime}.
+*/
+public interface ${model}Service extends BaseService<${model}, ${model}Example> {
+
+}

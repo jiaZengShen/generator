@@ -1,0 +1,30 @@
+package ${package_name}.rpc.service.impl;
+
+import com.alibaba.dubbo.config.annotation.Service;
+import com.hoze.common.annotation.BaseService;
+import com.hoze.common.base.BaseServiceImpl;
+import ${package_name}.dao.mapper.${model}Mapper;
+import ${package_name}.dao.model.${model};
+import ${package_name}.dao.model.${model}Example;
+import ${package_name}.rpc.api.${model}Service;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
+
+/**
+* ${model}Service实现
+* ${model_comment}
+* Created by jzs  on ${ctime}.
+*/
+@Service
+@Transactional
+@BaseService
+public class ${model}ServiceImpl extends BaseServiceImpl<${model}Mapper, ${model}, ${model}Example> implements ${model}Service {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(${model}ServiceImpl.class);
+
+   #* @Autowired
+    ${model}Mapper ${mapper}Mapper;*#
+
+}

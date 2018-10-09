@@ -1,5 +1,5 @@
 /**
- *    Copyright 2006-2017 the original author or authors.
+ *    Copyright 2006-2018 the original author or authors.
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -21,6 +21,8 @@ import static org.mybatis.generator.internal.util.StringUtility.stringHasValue;
 import static org.mybatis.generator.internal.util.messages.Messages.getString;
 
 import java.sql.Connection;
+import java.sql.DatabaseMetaData;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -445,6 +447,8 @@ public class Context extends PropertyHolder {
             callback.startTask(getString("Progress.0")); //$NON-NLS-1$
             connection = getConnection();
 
+            //getTables(connection);
+
             DatabaseIntrospector databaseIntrospector = new DatabaseIntrospector(
                     this, connection.getMetaData(), javaTypeResolver, warnings);
 
@@ -476,6 +480,67 @@ public class Context extends PropertyHolder {
         } finally {
             closeConnection(connection);
         }
+    }
+
+    private static void getTables(Connection conn) throws SQLException {
+        DatabaseMetaData dbMetData = conn.getMetaData();
+        // mysql convertDatabaseCharsetType null
+        ResultSet rs = dbMetData.getTables(null,
+                convertDatabaseCharsetType("root", "mysql"), null,
+                new String[] { "TABLE", "VIEW" });
+
+        while (rs.next()) {
+            if (rs.getString(4) != null
+                    && (rs.getString(4).equalsIgnoreCase("TABLE") || rs
+                    .getString(4).equalsIgnoreCase("VIEW"))) {
+                String tableName = rs.getString(3).toLowerCase();
+                System.out.print(tableName + "\t");
+                // 根据表名提前表里面信息：
+                ResultSet colRet = dbMetData.getColumns(null, "%", tableName,
+                        "%");
+                while (colRet.next()) {
+                    String columnName = colRet.getString("COLUMN_NAME");
+                    String columnType = colRet.getString("TYPE_NAME");
+                    int datasize = colRet.getInt("COLUMN_SIZE");
+                    int digits = colRet.getInt("DECIMAL_DIGITS");
+                    int nullable = colRet.getInt("NULLABLE");
+                     System.out.println(columnName + " " + columnType + " "+
+                     datasize + " " + digits + " " + nullable);
+                }
+
+            }
+        }
+        System.out.println();
+
+        // resultSet数据下标从1开始 ResultSet tableRet =
+        //conn.getMetaData().getTables(null, null, "%", new String[] { "TABLE" });
+        //while (tableRet.next()) {
+        //  System.out.print(tableRet.getString(3) + "\t");
+        //}
+        //System.out.println();
+
+    }
+
+    public static String convertDatabaseCharsetType(String in, String type) {
+        String dbUser;
+        if (in != null) {
+            if (type.equals("oracle")) {
+                dbUser = in.toUpperCase();
+            } else if (type.equals("postgresql")) {
+                dbUser = "public";
+            } else if (type.equals("mysql")) {
+                dbUser = null;
+            } else if (type.equals("mssqlserver")) {
+                dbUser = null;
+            } else if (type.equals("db2")) {
+                dbUser = in.toUpperCase();
+            } else {
+                dbUser = in;
+            }
+        } else {
+            dbUser = "public";
+        }
+        return dbUser;
     }
 
     public int getGenerationSteps() {
