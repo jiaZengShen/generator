@@ -50,3 +50,4 @@
 /.project
 .idea
 *.iml
+/core/quickStart/target
